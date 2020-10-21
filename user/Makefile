@@ -85,3 +85,12 @@ clean: cleandocker
 	rm -rf bin
 	rm -rf docker/user/bin
 	rm -rf vendor
+build:
+	DOCKER_BUILDKIT=1 docker build --tag user .
+
+run-java:
+	docker run --entrypoint sh -it --rm user:latest
+health:
+	curl http://localhost:8080/health	
+run:
+	docker run --name user-container  -d -p 8080:80 user:latest

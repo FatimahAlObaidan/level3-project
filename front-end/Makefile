@@ -65,3 +65,12 @@ kill-compose:
 
 kill-server:
 	@if [ $$(docker ps -a -q -f name=$(IMAGE) | wc -l) -ge 1 ]; then docker rm -f $(IMAGE); fi
+
+build-new:
+	DOCKER_BUILDKIT=1 docker build --tag front-end .
+
+run:
+	docker run --name front-end-container -d -p 80:8079 front-end:latest
+health:
+	curl localhost:80/health
+

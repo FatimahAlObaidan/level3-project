@@ -22,3 +22,10 @@ dockertravisbuild: build
 	docker build -t $(DBNAME):$(TAG) -f docker/catalogue-db/Dockerfile docker/catalogue-db/
 	docker login -u $(DOCKER_USER) -p $(DOCKER_PASS)
 	scripts/push.sh
+build-new:
+	DOCKER_BUILDKIT=1 docker build --tag catalogue .
+
+run:
+	docker run --name catalogue-container -d -p 8080:80 catalogue:latest
+health:
+	curl localhost:8080/health
