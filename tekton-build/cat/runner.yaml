@@ -1,0 +1,16 @@
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  name: front-end-runner
+spec:
+  serviceAccountName: fatimah-docker-hub
+  taskRef:
+    name: front-end
+  params:
+  - name: IMAGE
+    value: "fatimahalobaidan/petclinic2a"
+  resources:
+    inputs:
+    - name: front-end
+      resourceRef:
+        name: front-end
